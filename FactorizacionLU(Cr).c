@@ -44,15 +44,15 @@ int k1;
 
     double respaldo_diag[m];
     for(int i=0;i<m;i++){
-        respaldo_diag[i]=matrizA[i][i];
+        respaldo_diag[i]=matrizA[i][i];//crear respaldo para no perder los valores de la diagonal
         matrizA[i][i]=1;
     }
-    solv_diagonalinf(matrizA,m,resultado);
+    solv_diagonalinf(matrizA,m,resultado);//resolver ly=b
     for(int i=0; i<m;i++){
         matrizA[i][i]=respaldo_diag[i];
-        matrizA[i][m]=resultado[i];
+        matrizA[i][m]=resultado[i];//intercambiar valores de la ultima columna por los resultados de resolver ly=b
     }
-    solv_diagonalsup(matrizA,m,resultado);
+    solv_diagonalsup(matrizA,m,resultado);//resolver ux=y
 
     printf("\n");
     imprime_matrizc(matrizA,m);
