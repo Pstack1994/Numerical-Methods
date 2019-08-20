@@ -9,8 +9,6 @@ printf("Ingrese el tamano de la matriz: ");
     scanf("%d",&m);
     double **matrizA=crea_matriz(m);
     double resultado[m];
-    double matrizL[m][m];
-    double matrizU [m][m];
     printf("Ingrese los elementos de la matriz: \n");
     for(int i=0; i<m; i++){
         for(int j=0; j<=m;j++){
@@ -44,8 +42,22 @@ int k1;
         }
     }
 
-        printf("\n");
+    double respaldo_diag[m];
+    for(int i=0;i<m;i++){
+        respaldo_diag[i]=matrizA[i][i];
+        matrizA[i][i]=1;
+    }
+    solv_diagonalinf(matrizA,m,resultado);
+    for(int i=0; i<m;i++){
+        matrizA[i][i]=respaldo_diag[i];
+        matrizA[i][m]=resultado[i];
+    }
+    solv_diagonalsup(matrizA,m,resultado);
+
+    printf("\n");
     imprime_matrizc(matrizA,m);
+    printf("\n");
+    imprime_resultado(resultado,m);
 
     liberar_matriz(matrizA,m);
     return 0;
