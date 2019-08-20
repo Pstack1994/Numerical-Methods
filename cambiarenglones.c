@@ -12,6 +12,7 @@ int main(){
     scanf("%d",&m);
     double **matriz=crea_matriz(m);
     printf("Ingrese los elementos de la matriz: \n");
+
     for(int i=0; i<m; i++){
         for(int j=0; j<=m;j++){
             scanf("%lf",&matriz[i][j]);
