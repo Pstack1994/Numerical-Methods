@@ -4,6 +4,7 @@
 
 int main(){
 int m;
+int r2=1;
 
 printf("Ingrese el tamano de la matriz: ");
     scanf("%d",&m);
@@ -16,7 +17,7 @@ printf("Ingrese el tamano de la matriz: ");
             scanf("%lf",&matrizA[i][j]);
         }
     }
-int k1, r2;
+int k1;
     for(int i=0; i<m;i++){
         for(int j=0; j<m;j++){
             if(j==0 && i!=0){
@@ -34,42 +35,52 @@ int k1, r2;
                 k1=i;//cambia los limites de la suma del for de abajo.
             }
 
-            for(int c=0;c<m;c++){
+            for(int c=0;c<=m;c++){
                 respaldo[c]=matrizA[i][c];
             }
 
             for(int k=0; k<k1;k++){
                 matrizA[i][j]-=matrizA[i][k]*matrizA[k][j];
-                if(matrizA[i][i]==0){
-                    for(int c=i;c<m;c++){
-                        //buscar que los pivotes de abajo sean diferentes de 0
-                        if(matrizA[c][c]!=0){
-
-                        }
-                    }
-                }
             }
             if(j<i){
                 matrizA[i][j]/=matrizA[j][j];
             }
+
+            if(matrizA[i][i]==0 && i==j){//pivote es igual a cero
+                for(int k=0; k<=m;k++){
+                    matrizA[i][k]=matrizA[i+r2][k];
+                    matrizA[i+r2][k]=respaldo[k];
+                }
+                i--;
+            }
         }
+        r2=1;
     }
+
+    printf("\n");
+    imprime_matrizc(matrizA,m);
+    printf("\n");
 
     double respaldo_diag[m];
     for(int i=0;i<m;i++){
         respaldo_diag[i]=matrizA[i][i];//crear respaldo para no perder los valores de la diagonal
         matrizA[i][i]=1;
     }
+
     solv_diagonalinf(matrizA,m,resultado);//resolver ly=b
+    imprime_resultado(resultado,m);
     for(int i=0; i<m;i++){
         matrizA[i][i]=respaldo_diag[i];
         matrizA[i][m]=resultado[i];//intercambiar valores de la ultima columna por los resultados de resolver ly=b
     }
-    solv_diagonalsup(matrizA,m,resultado);//resolver ux=y
-
+    printf("\n");
+    printf("aqui");
     printf("\n");
     imprime_matrizc(matrizA,m);
     printf("\n");
+
+    solv_diagonalsup(matrizA,m,resultado);//resolver ux=y
+
     imprime_resultado(resultado,m);
 
     liberar_matriz(matrizA,m);
