@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "matrix.c"
 #include "solve.c"
+#include "operacion_matriz.c"
+#include "EcuacionesL_Metodos.c"
+
+
 
 
 int main(){

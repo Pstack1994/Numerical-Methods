@@ -1,24 +1,23 @@
 #include <stdio.h>
 #include<stdlib.h>
 
-void imprime_matrizc(double **matriz, int m);
-void imprime_resultado(double *resultado, int m);
-double mabs(double a);
-void *cambia_renglon(double**matriz,int m, int r1, int r2);
-void *cambia_columna(double**matriz,int m, int c1, int c2);
-double find_maxr(double **matriz, int m,int r, int c, int *r2);
-double find_max(double **matriz, int m,int r, int c , int *r2, int *c2);
+//void imprime_matrizc(double **matriz, int m);
+//void imprime_resultado(double *resultado, int m);
+//double mabs(double a);
+//void *cambia_renglon(double**matriz,int m, int r1, int r2);
+//void *cambia_columna(double**matriz,int m, int c1, int c2);
+//double find_maxr(double **matriz, int m,int r, int c, int *r2);
+//double find_max(double **matriz, int m,int r, int c , int *r2, int *c2);
 void *solv_diagonalinf(double **matriz,int m, double *resultado);
-double det_diagonalinf(double **matriz, int m);
+double det_diagonal(double **matriz, int m);
 void *solv_diagonalsup(double **matriz, int m, double *resultado);
-double det_diagonalsup(double **matriz, int m);
-double GJ_sinpivoteo(double**matriz, int m, double *resultado);
+/*double GJ_sinpivoteo(double**matriz, int m, double *resultado);
 double GJ_pivoteo(double**matriz, int m, double *resultado);
 void desc_LU(double **matriz, int m);
-void solv_LU(double **matrizLU,int m, double *resultado);
+void solv_LU(double **matrizLU,int m, double *resultado);*/
 
 
-void imprime_matrizc(double **matriz, int m){
+/*void imprime_matrizc(double **matriz, int m){
     for (int i=0; i<m;i++){
         for(int j=0; j<=m;j++){
             printf("%lf ",matriz[i][j]);
@@ -56,9 +55,9 @@ void *cambia_columna(double**matriz,int m, int c1,int c2){
 }
 
 double find_maxr(double **matriz, int m,int r, int c, int *r2){//encontrar el maximo de una columna de una matriz
-    double max=abs(matriz[r][c]);//inicializar el máximo con el valor del pivote en donde estamos
+    double max=mabs(matriz[r][c]);//inicializar el máximo con el valor del pivote en donde estamos
     for(int i=r; i<m;i++){
-        if(abs(matriz[i][c])>abs(max)){max=matriz[i][c];*r2=i;}//r2=posicion del valor máximo.
+        if(mabs(matriz[i][c])>mabs(max)){max=matriz[i][c];*r2=i;}//r2=posicion del valor máximo.
     }
     return max;
 }
@@ -75,7 +74,7 @@ double find_max(double **matriz, int m,int r, int c, int *r2, int *c2){//encuent
     }
     return max;
 }
-
+*/
 void *solv_diagonalinf(double **matriz,int m, double *resultado){//resuelve una matriz triangular inferior
     double suma=0, c=0;
     resultado[0]=matriz[0][m]/matriz[0][0];
@@ -88,7 +87,7 @@ void *solv_diagonalinf(double **matriz,int m, double *resultado){//resuelve una 
     }
 }
 
-double det_diagonalinf(double **matriz, int m){
+double det_diagonal(double **matriz, int m){
     double resultado;
     resultado=matriz[0][0];
     for(int i=1;i<m;i++){
@@ -109,17 +108,10 @@ void *solv_diagonalsup(double **matriz, int m, double *resultado){
     }
 }
 
-double det_diagonalsup(double **matriz, int m){
-    double resultado;
-    resultado=matriz[0][0];
-    for(int i=1;i<m;i++){
-        resultado*=matriz[i][i];
-    }
 
-    return resultado;
-}
 
 ///////////////////////Gauss sin pivoteo//////////////////////////////////////////////////////
+/*
 double GJ_sinpivoteo(double**matriz, int m, double *resultado){
 int r=0, c=0, r2=0, s=1;//r=renglomnes, c=columnas, r2=renglon por el cual se intercambiará, s=signo del determinante.
 double max, det=1;//max=máximo de la columna c, det=determinante.
@@ -259,9 +251,9 @@ for(int i=0; i<m;i++){
         r2=1;
     }
 
-   /* printf("\n");
+   printf("\n");
     imprime_matrizc(matriz,m);
-    printf("\n");*/
+    printf("\n");
 }
 ////////////solucionar LU/////////////////////////////////////////////////
 void solv_LU(double **matrizLU,int m, double *resultado){
@@ -279,3 +271,4 @@ void solv_LU(double **matrizLU,int m, double *resultado){
     }
     solv_diagonalsup(matrizLU,m,resultado);//resolver ux=y
 }
+*/
