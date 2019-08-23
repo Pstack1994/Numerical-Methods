@@ -7,7 +7,7 @@ double GJ_sinpivoteo(double**matriz, int m, int n, double *resultado);
 double GJ_pivoteo(double**matriz, int m, int n, double *resultado);
 void desc_LU(double **matriz, int m);
 void solv_LU(double **matrizLU,int m, double *resultado);
-
+double ** inversa_LU(double **matriz, int m);
 
 
 ///////////////////////Gauss sin pivoteo//////////////////////////////////////////////////////
@@ -169,4 +169,63 @@ void solv_LU(double **matrizLU,int m, double *resultado){
         matrizLU[i][m]=resultado[i];//intercambiar valores de la ultima columna por los resultados de resolver ly=b
     }
     solv_diagonalsup(matrizLU,m,resultado);//resolver ux=y
+}
+double ** inversa_LU(double **matriz, int m){
+    double resultado[m];
+    double **identidad=crea_matriz(m);
+    for(int i=0;i<m;i++){
+        for(int j=0; j<m; j++){
+            if(i==j){
+                identidad[i][j]=1;
+            }
+            else{
+                identidad[i][j]=0;
+            }
+        }
+    }
+
+    double respaldo_diag[m];
+
+    for(int i=0;i<m;i++){
+    respaldo_diag[i]=matriz[i][i];//crear respaldo para no perder los valores de la diagonal
+    matriz[i][i]=1;
+    }
+
+    for(int i=0;i<m;i++){
+
+        for(int j=0; j<m; j++){
+            matriz[j][m]=identidad[j][i];
+        }
+        solv_diagonalinf(matriz,m,resultado);
+        for(int k=0; k<m;k++){
+            identidad[k][i]= resultado[k];
+        }
+    }
+
+
+    for(int i=0; i<m;i++){
+        matriz[i][i]=respaldo_diag[i];
+    }
+
+//////////////////////////////////// resolver superior /////////////////////
+
+    for(int i=0;i<m;i++){
+        for(int j=0; j<m; j++){
+            matriz[j][m]=identidad[j][i];
+        }
+        solv_diagonalsup(matriz,m,resultado);
+
+        for(int k=0; k<m;k++){
+            identidad[k][i]= resultado[k];
+        }
+    }
+
+    for(int i=0; i<m;i++){
+        for(int j=0; j<m; j++){
+            printf("%lf ", identidad[i][j]);
+        }
+        printf("\n");
+    }
+
+    return identidad;
 }

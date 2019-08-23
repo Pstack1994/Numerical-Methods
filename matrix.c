@@ -94,4 +94,5 @@ Matriz lee_matriz1(int argc, char* argv[]){
 	fclose( fin );
 	matriz.m=m;
 	matriz.n=n;
+	return matriz;
 }

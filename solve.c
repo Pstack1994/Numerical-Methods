@@ -8,6 +8,7 @@
 //void *cambia_columna(double**matriz,int m, int c1, int c2);
 //double find_maxr(double **matriz, int m,int r, int c, int *r2);
 //double find_max(double **matriz, int m,int r, int c , int *r2, int *c2);
+void solv_diagonal(double **matriz,int m,double *resultado);
 void solv_diagonalinf(double **matriz,int m, double *resultado);
 double det_diagonal(double **matriz, int m);
 void solv_diagonalsup(double **matriz, int m, double *resultado);
@@ -75,6 +76,12 @@ double find_max(double **matriz, int m,int r, int c, int *r2, int *c2){//encuent
     return max;
 }
 */
+void solv_diagonal(double **matriz,int m,double *resultado){
+    for(int i=0; i<m;i++){
+        resultado[i]= matriz[i][m]/matriz[i][i];
+    }
+}
+
 void solv_diagonalinf(double **matriz,int m, double *resultado){//resuelve una matriz triangular inferior
     double suma=0, c=0;
     resultado[0]=matriz[0][m]/matriz[0][0];

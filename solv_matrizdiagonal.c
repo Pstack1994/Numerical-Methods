@@ -1,36 +1,20 @@
-#include <stdio.h>
+#include<stdio.h>
 #include"matrix.c"
+#include "operacion_matriz.c"
+#include"solve.c"
+#include "EcuacionesL_Metodos.c"
 
-double *solv_diagonal(double **x,int m,double *resultado);
-
-int main (){
-    int m=0;
-
-    printf("Dame el tamano de la matriz: \n");
-    scanf("%d",&m);
-    double resultado[m];
-    double **matriz=crea_matriz(m);
-    printf("Dame los elementos de la matriz: \n");
-    for(int i=0; i<m;i++){
-        for(int j=0; j<m+1;j++){
-            scanf("%lf",&matriz[i][j]);
-        }
-    }
-
-    solv_diagonal(matriz,m,resultado);
-
-    for(int j=0; j<m;j++){
-        printf("%lf ",resultado[j]);
-    }
-
-    liberar_matriz(matriz,m);
+int main(int argc, char* argv[]){
+    Matriz matriz;
+    double det;
+    matriz=lee_matriz(argc, argv);
+    double resultado[matriz.m];
+    solv_diagonal(matriz.A,matriz.m,resultado);
+    imprime_resultado(resultado, matriz.m);
+    printf("\n");
+    printf("El determinante es: ");
+    det=det_diagonal(matriz.A,matriz.m);
+    printf("%lf",det);
+    liberar_matriz(matriz.A,matriz.m);
     return 0;
-}
-
-
-double *solv_diagonal(double **x,int m,double *resultado){
-    for(int i=0; i<m;i++){
-        resultado[i]= x[i][m]/x[i][i];
-    }
-    return resultado;
 }
