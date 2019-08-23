@@ -4,6 +4,7 @@
 double **crea_matriz(int m);
 void liberar_matriz(double **matriz,int m);
 double **lee_matriz(int argc, char* argv[]);
+double **lee_matriz1(int argc, char* argv[]);
 
 double **crea_matriz(int m){
     double **matriz;
@@ -53,6 +54,32 @@ double **lee_matriz(int argc, char* argv[]){
 
 	for(int j=0; j<k; j++){
 		fscanf(fin, "%lf", &matriz[j][m]);
+	}
+	fclose( fin );
+
+	return matriz;
+}
+
+
+double **lee_matriz1(int argc, char* argv[]){
+    int n,m;
+    int k,l;
+	double **matriz;
+
+    FILE* fin = NULL;
+	fin = fopen( argv[ 1 ] , "r" );
+
+	if(  !fin  ){
+		printf("Error: No se abrio %s\n" , argv[ 1 ] );
+	}
+
+    fscanf(fin, "%d %d", &n, &m );
+	matriz=crea_matriz(m);
+
+    for(int i=0; i<n; i++){
+		for(int j=0; j<m; j++){
+			fscanf(fin, "%lf", &matriz[i][j]);
+		}
 	}
 	fclose( fin );
 
