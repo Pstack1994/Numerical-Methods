@@ -6,15 +6,14 @@
 
 int main(int argc, char* argv[]){
 
-    double ** matriz=lee_matriz(argc, argv);
-    int m=4;
-    int n=4;
-    double resultado[m];
+    Matriz matriz;
+    matriz=lee_matriz(argc, argv);
+    double resultado[matriz.m];
     double det;
-    det=GJ_pivoteo(matriz, m, n,resultado);
-    imprime_resultado(resultado,m);
+    det=GJ_pivoteo(matriz.A, matriz.m, matriz.n,resultado);
+    imprime_resultado(resultado,matriz.m);
     printf("\n");
     printf("%lf",det);
-    liberar_matriz(matriz,m);
+    liberar_matriz(matriz.A,matriz.m);
     return 0;
 }

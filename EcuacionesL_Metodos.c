@@ -110,7 +110,7 @@ double GJ_pivoteo(double**matriz, int m, int n, double *resultado){
 //descomposicion LU////////////////////////////////////////////////
 void desc_LU(double **matriz, int m){
     int k1, r2=1;
-    double respaldo[m];
+    double respaldo[m+1];
 for(int i=0; i<m;i++){
         for(int j=0; j<m;j++){
             if(j==0 && i!=0){

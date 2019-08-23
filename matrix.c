@@ -1,10 +1,17 @@
 #include <stdio.h>
 #include<stdlib.h>
 
+typedef struct{
+	double **A;
+	int m;
+	int n;
+} Matriz;
+
 double **crea_matriz(int m);
 void liberar_matriz(double **matriz,int m);
-double **lee_matriz(int argc, char* argv[]);
-double **lee_matriz1(int argc, char* argv[]);
+Matriz lee_matriz(int argc, char* argv[]);
+Matriz lee_matriz1(int argc, char* argv[]);
+
 
 double **crea_matriz(int m){
     double **matriz;
@@ -22,10 +29,11 @@ void liberar_matriz(double **matriz,int m){
     free(matriz);
 }
 
-double **lee_matriz(int argc, char* argv[]){
+Matriz lee_matriz(int argc, char* argv[]){
     int n,m;
     int k,l;
-	double **matriz;
+	Matriz matriz;
+
 
     FILE* fin = NULL;
 	fin = fopen( argv[ 1 ] , "r" );
@@ -35,11 +43,11 @@ double **lee_matriz(int argc, char* argv[]){
 	}
 
     fscanf(fin, "%d %d", &n, &m );
-	matriz=crea_matriz(m);
+	matriz.A=crea_matriz(m);
 
     for(int i=0; i<n; i++){
 		for(int j=0; j<m; j++){
-			fscanf(fin, "%lf", &matriz[i][j]);
+			fscanf(fin, "%lf", &matriz.A[i][j]);
 		}
 	}
 	fclose( fin );
@@ -53,18 +61,20 @@ double **lee_matriz(int argc, char* argv[]){
     fscanf( fin , "%d %d", &k , &l );
 
 	for(int j=0; j<k; j++){
-		fscanf(fin, "%lf", &matriz[j][m]);
+		fscanf(fin, "%lf", &matriz.A[j][m]);
 	}
 	fclose( fin );
+	matriz.m=m;
+	matriz.n=n;
 
 	return matriz;
 }
 
 
-double **lee_matriz1(int argc, char* argv[]){
-    int n,m;
-    int k,l;
-	double **matriz;
+Matriz lee_matriz1(int argc, char* argv[]){
+    int m, n;
+	int k,l;
+	Matriz matriz;
 
     FILE* fin = NULL;
 	fin = fopen( argv[ 1 ] , "r" );
@@ -74,14 +84,14 @@ double **lee_matriz1(int argc, char* argv[]){
 	}
 
     fscanf(fin, "%d %d", &n, &m );
-	matriz=crea_matriz(m);
+	matriz.A=crea_matriz(m);
 
     for(int i=0; i<n; i++){
 		for(int j=0; j<m; j++){
-			fscanf(fin, "%lf", &matriz[i][j]);
+			fscanf(fin, "%lf", &matriz.A[i][j]);
 		}
 	}
 	fclose( fin );
-
-	return matriz;
+	matriz.m=m;
+	matriz.n=n;
 }
