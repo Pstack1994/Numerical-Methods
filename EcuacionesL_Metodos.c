@@ -8,6 +8,7 @@ double GJ_pivoteo(double**matriz, int m, int n, double *resultado);
 void desc_LU(double **matriz, int m);
 void solv_LU(double **matrizLU,int m, double *resultado);
 double ** inversa_LU(double **matriz, int m);
+double ** Mod_Cholesky(double **matriz,int m, int n);
 
 
 ///////////////////////Gauss sin pivoteo//////////////////////////////////////////////////////
@@ -94,9 +95,9 @@ double GJ_pivoteo(double**matriz, int m, int n, double *resultado){
     solv_diagonalsup(matriz, m, resultado);
 
     double maux;
+    int pos;
     for(int i=0; i<m; i++){//regresar los valores de los resultados a las posiciones correspondientes.
         if(posicion[i]!=i){
-
             maux=resultado[i];
             resultado[i]=resultado[posicion[i]];
             resultado[posicion[i]]=maux;
@@ -109,8 +110,8 @@ double GJ_pivoteo(double**matriz, int m, int n, double *resultado){
 }
 //descomposicion LU////////////////////////////////////////////////
 void desc_LU(double **matriz, int m){
-    int k1, r2=1;
-    double respaldo[m+1];
+int k1, r2=1;
+double respaldo[m+1];
 for(int i=0; i<m;i++){
         for(int j=0; j<m;j++){
             if(j==0 && i!=0){
@@ -191,7 +192,7 @@ double ** inversa_LU(double **matriz, int m){
     matriz[i][i]=1;
     }
 
-    for(int i=0;i<m;i++){
+    for(int i=0;i<m;i++){// resolver LY=I
 
         for(int j=0; j<m; j++){
             matriz[j][m]=identidad[j][i];
@@ -204,12 +205,10 @@ double ** inversa_LU(double **matriz, int m){
 
 
     for(int i=0; i<m;i++){
-        matriz[i][i]=respaldo_diag[i];
+        matriz[i][i]=respaldo_diag[i];//respaldar la diagonal
     }
 
-//////////////////////////////////// resolver superior /////////////////////
-
-    for(int i=0;i<m;i++){
+    for(int i=0;i<m;i++){ //Resolver UX=Y
         for(int j=0; j<m; j++){
             matriz[j][m]=identidad[j][i];
         }
@@ -228,4 +227,55 @@ double ** inversa_LU(double **matriz, int m){
     }
 
     return identidad;
+}
+//////////////////////CHOLESKY MODIFICADO////////////////////////////////////////////////////////
+double ** Mod_Cholesky(double **matriz,int m, int n){
+if(n!=m){
+    printf("No es una matriz cuadrada, no se puede aplicar este metodo");
+    return 0;
+}
+for(int i=0; i<m;i++){
+    for(int j=0;j<m;j++){
+        if(matriz[i][j]!=matriz[j][i]){
+            printf("No es una matriz simetrica, no se puede aplicar este metodo");
+            return 0;
+        }
+
+    }
+}
+
+for(int i=0;i<m;i++){
+        for(int j=0; j<n;j++){
+            if(i==j){
+                for(int k=0;k<i;k++){
+                    matriz[i][j]-=matriz[i][k]*matriz[i][k]*matriz[k][k];
+                }
+            }
+
+            if (i>j){
+                for(int k=0; k<j; k++){
+                    matriz[i][j]-=matriz[j][k]*matriz[i][k]*matriz[k][k];
+                }
+                matriz[i][j]/=matriz[j][j];
+            }
+
+        }
+    }
+
+    for(int i=0; i<m;i++){
+        for(int j=0; j<n; j++){
+              if(i<j){
+               matriz[i][j]=matriz[j][i];
+            }
+
+        }
+    }
+    /*for(int i=0; i<m;i++){
+        for(int j=0; j<n; j++){
+            printf("%lf ", matriz[i][j]);
+        }
+        printf("\n");
+    }*/
+
+    return matriz;
 }

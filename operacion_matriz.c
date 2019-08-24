@@ -2,17 +2,18 @@
 #include <stdlib.h>
 
 ////////////////Operaciones sobre matrices////////////////////
-void imprime_matrizc(double **matriz, int m);
+void imprime_matrizc(double **matriz, int m, int n);
 void imprime_resultado(double *resultado, int m);
 double mabs(double a);
 void *cambia_renglon(double**matriz,int m, int r1, int r2); //m=numero de columnas
 void *cambia_columna(double**matriz,int m, int c1, int c2);
 double find_maxr(double **matriz, int m,int r, int c, int *r2);
 double find_max(double **matriz, int m, int n, int r, int c , int *r2, int *c2);
+double **multiplicacion(double **matriz, double **matriz2, int m, int n, int p, int q);
 
-void imprime_matrizc(double **matriz, int m){
+void imprime_matrizc(double **matriz, int m, int n){
     for (int i=0; i<m;i++){
-        for(int j=0; j<=m;j++){
+        for(int j=0; j<n;j++){
             printf("%lf ",matriz[i][j]);
         }
         printf("\n");
@@ -66,4 +67,23 @@ double find_max(double **matriz, int m, int n, int r, int c, int *r2, int *c2){/
         }
     }
     return max;
+}
+
+double **multiplicacion(double **matriz, double **matriz2, int m, int n, int p, int q){
+    double **resultado=crea_matriz2(m,q);
+    if(n!=p){
+        printf("No es posible hacer la multiplicacion de estas matrices");
+        return 0;
+    }
+
+    for(int i=0; i<m; i++){
+        for(int j=0; j<n;j++){
+            resultado[i][j]=0;
+            for(int k=0;k<p;k++){
+                  resultado[i][j]+=matriz[i][k]*matriz2[k][j];
+            }
+
+        }
+    }
+    return resultado;
 }

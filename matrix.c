@@ -8,6 +8,7 @@ typedef struct{
 } Matriz;
 
 double **crea_matriz(int m);
+double **crea_matriz2(int m, int n);
 void liberar_matriz(double **matriz,int m);
 Matriz lee_matriz(int argc, char* argv[]);
 Matriz lee_matriz1(int argc, char* argv[]);
@@ -18,6 +19,14 @@ double **crea_matriz(int m){
     matriz=(double **)malloc(m*sizeof(double*));
     for(int i=0; i<m;i++){
         matriz[i]=(double *)malloc((m+1)*sizeof(double));
+    }
+    return matriz;
+}
+double **crea_matriz2(int m, int n){
+    double **matriz;
+    matriz=(double **)malloc(m*sizeof(double*));
+    for(int i=0; i<m;i++){
+        matriz[i]=(double *)malloc((n)*sizeof(double));
     }
     return matriz;
 }

@@ -24,7 +24,6 @@ int main(){
     desc_LU(matriz,m);
     solv_LU(matriz,m,resultado);
     imprime_resultado(resultado,m);
-
     liberar_matriz(matriz,m);
     return 0;
 }
