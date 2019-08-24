@@ -113,7 +113,9 @@ void desc_LU(double **matriz, int m){
 int k1, r2=1;
 double respaldo[m+1];
 for(int i=0; i<m;i++){
+        respaldo[m]=matriz[i][m];
         for(int j=0; j<m;j++){
+            respaldo[j]=matriz[i][j];
             if(j==0 && i!=0){
                matriz[i][0]=matriz[i][0]/matriz[0][0];
                continue;//se salta todo lo que está abajo.
@@ -129,26 +131,29 @@ for(int i=0; i<m;i++){
                 k1=i;//cambia los limites de la suma del for de abajo.
             }
 
-            for(int c=0;c<=m;c++){
-                respaldo[c]=matriz[i][c];
-            }
-
             for(int k=0; k<k1;k++){
                 matriz[i][j]-=matriz[i][k]*matriz[k][j];
             }
             if(j<i){
                 matriz[i][j]/=matriz[j][j];
             }
-
-            if(matriz[i][i]==0 && i==j){//pivote es igual a cero
-                for(int k=0; k<=m;k++){
-                    matriz[i][k]=matriz[i+r2][k];
-                    matriz[i+r2][k]=respaldo[k];
-                }
-                i--;
-            }
         }
-        r2=1;
+        printf("\n");
+        //imprime_matrizc(matriz,m,m);
+        printf("\n");
+        if(matriz[i][i]==0 && i<m-1){//pivote es igual a cero
+            if(i+r2>=m){printf("El sistema no tiene solucion");return;}
+
+            for(int k=0; k<=m;k++){
+                matriz[i][k]=matriz[i+r2][k];
+                matriz[i+r2][k]=respaldo[k];
+            }
+            r2++;
+            i--;
+            continue;
+        }
+         r2=1;
+
     }
 
    /* printf("\n");
@@ -164,13 +169,13 @@ void solv_LU(double **matrizLU,int m, double *resultado){
     }
 
     solv_diagonalinf(matrizLU,m,resultado);//resolver ly=b
-
     for(int i=0; i<m;i++){
         matrizLU[i][i]=respaldo_diag[i];
         matrizLU[i][m]=resultado[i];//intercambiar valores de la ultima columna por los resultados de resolver ly=b
     }
     solv_diagonalsup(matrizLU,m,resultado);//resolver ux=y
 }
+
 double ** inversa_LU(double **matriz, int m){
     double resultado[m];
     double **identidad=crea_matriz(m);

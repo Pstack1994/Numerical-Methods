@@ -7,23 +7,14 @@
 
 
 
-int main(){
-    int m;
-    printf("Ingrese el tamano de la matriz: ");
-    scanf("%d",&m);
-    double **matriz=crea_matriz(m);
-    double resultado[m];
-    double respaldo[m];
-    printf("Ingrese los elementos de la matriz: \n");
-    for(int i=0; i<m; i++){
-        for(int j=0; j<=m;j++){
-            scanf("%lf",&matriz[i][j]);
-        }
-    }
-
-    desc_LU(matriz,m);
-    solv_LU(matriz,m,resultado);
-    imprime_resultado(resultado,m);
-    liberar_matriz(matriz,m);
+int main(int argc, char* argv[]){
+    Matriz matriz;
+    matriz=lee_matriz(argc, argv);
+    double resultado[matriz.m];
+    double respaldo[matriz.m];
+    desc_LU(matriz.A,matriz.m);
+    solv_LU(matriz.A,matriz.m,resultado);
+    imprime_resultado(resultado,matriz.m);
+    liberar_matriz(matriz.A,matriz.m);
     return 0;
 }
