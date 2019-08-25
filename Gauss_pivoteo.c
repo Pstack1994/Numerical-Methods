@@ -11,9 +11,10 @@ int main(int argc, char* argv[]){
     double resultado[matriz.m];
     double det;
     det=GJ_pivoteo(matriz.A, matriz.m, matriz.n,resultado);
+
     imprime_resultado(resultado,matriz.m);
     printf("\n");
-    printf("%lf",det);
+    printf("El determinante es: %lf",det);
     liberar_matriz(matriz.A,matriz.m);
     return 0;
 }

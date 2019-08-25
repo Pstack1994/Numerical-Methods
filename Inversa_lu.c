@@ -11,11 +11,19 @@ int main(int argc, char* argv[]){
     matriz2=lee_matriz1(argc, argv);
     double **resultado;
     double **inversa;
-    desc_LU(matriz.A, matriz.m);
-    inversa=inversa_LU(matriz.A, matriz.m);
+    int posicion[matriz.m];
+    desc_LU(matriz.A, matriz.m, posicion);
+    inversa=inversa_LU(matriz.A, matriz.m, posicion);
     resultado=multiplicacion(inversa,matriz2.A,matriz.m,matriz.m,matriz.m,matriz.m);
+
+    printf("La inversa es: \n");
+    imprime_matrizc(inversa,matriz.m, matriz.n);
     printf("\n");
-    imprime_matrizc(resultado,matriz.m,matriz.m);
+    printf("Inversa por matriz original: \n");
+    imprime_matrizc(resultado,matriz.m,matriz.n);
+
+    liberar_matriz(resultado,matriz.m);
+    liberar_matriz(matriz2.A, matriz2.m);
     liberar_matriz(matriz.A,matriz.m);
     liberar_matriz(inversa, matriz.m);
     return 0;

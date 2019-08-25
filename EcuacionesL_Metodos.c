@@ -5,9 +5,9 @@
 
 double GJ_sinpivoteo(double**matriz, int m, int n, double *resultado);
 double GJ_pivoteo(double**matriz, int m, int n, double *resultado);
-void desc_LU(double **matriz, int m);
+void desc_LU(double **matriz, int m, int *posicion);
 void solv_LU(double **matrizLU,int m, double *resultado);
-double ** inversa_LU(double **matriz, int m);
+double ** inversa_LU(double **matriz, int m, int *posicion);
 double ** Mod_Cholesky(double **matriz,int m, int n);
 
 
@@ -76,6 +76,7 @@ double GJ_pivoteo(double**matriz, int m, int n, double *resultado){
             }
         }
         det*=matriz[r][c]; //se calcula el determinante al multiplicar los pivotes de la matriz.
+
         for(int i=n; i>=0;i--){
             matriz[r][i]= (matriz[r][i])*(1/matriz[r][c]);// se divide el renglon r entre el pivote
         }
@@ -96,22 +97,30 @@ double GJ_pivoteo(double**matriz, int m, int n, double *resultado){
 
     double maux;
     int pos;
+
     for(int i=0; i<m; i++){//regresar los valores de los resultados a las posiciones correspondientes.
-        if(posicion[i]!=i){
-            maux=resultado[i];
-            resultado[i]=resultado[posicion[i]];
-            resultado[posicion[i]]=maux;
-            posicion[posicion[i]]=posicion[i];
-            posicion[i]=i;
+        for(int j=0; j<m; j++){
+            if(i==posicion[j]){
+                maux=resultado[j];
+                resultado[j]=resultado[i];
+                resultado[i]=maux;
+                pos=posicion[i];
+                posicion[i]=posicion[j];
+                posicion[j]=pos;
+            }
         }
     }
     det=s*det;
     return det;
 }
 //descomposicion LU////////////////////////////////////////////////
-void desc_LU(double **matriz, int m){
-int k1, r2=1;
+void desc_LU(double **matriz, int m, int *posicion){
+int k1, r2=1, aux=0;
 double respaldo[m+1];
+
+for(int i=0; i<m;i++){
+    posicion[i]=i;
+}
 for(int i=0; i<m;i++){
         respaldo[m]=matriz[i][m];
         for(int j=0; j<m;j++){
@@ -138,20 +147,20 @@ for(int i=0; i<m;i++){
                 matriz[i][j]/=matriz[j][j];
             }
         }
-        printf("\n");
-        //imprime_matrizc(matriz,m,m);
-        printf("\n");
         if(matriz[i][i]==0 && i<m-1){//pivote es igual a cero
             if(i+r2>=m){printf("El sistema no tiene solucion");return;}
-
             for(int k=0; k<=m;k++){
                 matriz[i][k]=matriz[i+r2][k];
                 matriz[i+r2][k]=respaldo[k];
             }
+            aux=posicion[i];
+            posicion[i]=posicion[i+r2];
+            posicion[i+r2]=aux;
             r2++;
             i--;
             continue;
         }
+
          r2=1;
 
     }
@@ -176,8 +185,9 @@ void solv_LU(double **matrizLU,int m, double *resultado){
     solv_diagonalsup(matrizLU,m,resultado);//resolver ux=y
 }
 
-double ** inversa_LU(double **matriz, int m){
+double ** inversa_LU(double **matriz, int m,int *posicion){
     double resultado[m];
+    double auxiliar[m];
     double **identidad=crea_matriz(m);
     for(int i=0;i<m;i++){
         for(int j=0; j<m; j++){
@@ -186,6 +196,17 @@ double ** inversa_LU(double **matriz, int m){
             }
             else{
                 identidad[i][j]=0;
+            }
+        }
+    }
+
+   for(int i=0;i<m;i++){
+        for(int j=0; j<m; j++){
+            auxiliar[j]=identidad[j][i];
+            if(posicion[i]!=i){
+                identidad[j][i]=identidad[i][posicion[j]];
+                identidad[i][posicion[j]]=auxiliar[j];
+                //posicion[i]=i;
             }
         }
     }
@@ -224,26 +245,21 @@ double ** inversa_LU(double **matriz, int m){
         }
     }
 
-    for(int i=0; i<m;i++){
-        for(int j=0; j<m; j++){
-            printf("%lf ", identidad[i][j]);
-        }
-        printf("\n");
-    }
-
     return identidad;
 }
 //////////////////////CHOLESKY MODIFICADO////////////////////////////////////////////////////////
 double ** Mod_Cholesky(double **matriz,int m, int n){
 if(n!=m){
     printf("No es una matriz cuadrada, no se puede aplicar este metodo");
-    return 0;
+    liberar_matriz(matriz, m);
+    exit(EXIT_FAILURE);
 }
 for(int i=0; i<m;i++){
     for(int j=0;j<m;j++){
         if(matriz[i][j]!=matriz[j][i]){
             printf("No es una matriz simetrica, no se puede aplicar este metodo");
-            return 0;
+            liberar_matriz(matriz, m);
+            exit(EXIT_FAILURE);
         }
 
     }

@@ -21,10 +21,11 @@ void imprime_matrizc(double **matriz, int m, int n){
 }
 
 void imprime_resultado(double *resultado, int m){
-    printf("El resultado es: ");
+    printf("EL resultado es: ");
     for(int i=0; i<m;i++){
         printf("%lf ", resultado[i]);
     }
+    printf("\n");
 }
 
 double mabs(double a){

@@ -76,8 +76,21 @@ double find_max(double **matriz, int m,int r, int c, int *r2, int *c2){//encuent
     return max;
 }
 */
+double det_diagonal(double **matriz, int m){
+    double resultado;
+    resultado=matriz[0][0];
+    for(int i=1;i<m;i++){
+        resultado*=matriz[i][i];
+    }
+    return resultado;
+}
+
 void solv_diagonal(double **matriz,int m,double *resultado){
     for(int i=0; i<m;i++){
+        if(matriz[i][i]==0){
+            printf("el sistema no tiene solucion");
+            return;
+        }
         resultado[i]= matriz[i][m]/matriz[i][i];
     }
 }
@@ -90,17 +103,12 @@ void solv_diagonalinf(double **matriz,int m, double *resultado){//resuelve una m
         for(int j=0; j<i;j++){
             suma+=matriz[i][j]*resultado[j];
         }
+        if(matriz [i][i]==0){
+            printf("El sistema no tiene solucion");
+            return;
+        }
         resultado[i]=(matriz[i][m]-suma)/matriz[i][i];
     }
-}
-
-double det_diagonal(double **matriz, int m){
-    double resultado;
-    resultado=matriz[0][0];
-    for(int i=1;i<m;i++){
-        resultado*=matriz[i][i];
-    }
-    return resultado;
 }
 
 void solv_diagonalsup(double **matriz, int m, double *resultado){
@@ -110,6 +118,10 @@ void solv_diagonalsup(double **matriz, int m, double *resultado){
             suma=0;
         for(int j=1; j<i;j++){
             suma+= matriz[m-i][m-j]*resultado[m-j];
+        }
+        if(matriz [m-i][m-i]==0){
+            printf("El sistema no tiene solucion");
+            return;
         }
         resultado[m-i]=(matriz[m-i][m]-suma)/matriz[m-i][m-i];
     }
