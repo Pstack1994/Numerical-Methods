@@ -1,0 +1,41 @@
+Lista de programas: 
+
+solv_matrizdiagonal.c -----> soluciona una matriz diagonal. 
+para compilar este programa: 
+* gcc solv_matrizdiagonal.c 
+* ./a.out M_DIAG.txt V_DIAG.txt
+
+solv_diagonalinferior.c -----> soluciona una matriz triangular inferior. 
+para compilar este programa: 
+* gcc solv_diagonalinferior.c
+* ./a.out M_TINF.c V_TINF.c
+
+solv_diagonalsuperior.c -----> soluciona una matriz triangular superior. 
+para compilar este programa: 
+* gcc solv_diagonalinferior.c
+* ./a.out M_TSUP.c V_TSUP.c
+
+gaussjordansinpivoteo.c -----> soluciona una sistema de ecuaciones mediante gauss sin pivoteo. 
+para compilar este programa: 
+* gcc gaussjordansinpivoteo.c 
+* ./a.out M_SMALL.txt V_SMALL.txt
+
+Gauss_pivoteo.c -----> soluciona una sistema de ecuaciones mediante gauss con pivoteo. 
+* gcc Gauss_pivoteo.c
+* ./a.out M_SMALL.txt V_SMALL.txt
+
+Fact_LU_DOO.c -----> soluciona una sistema de ecuaciones mediante factorización LU Doolitle. 
+* gcc Fact_LU_DOO.c
+* ./a.out M_SMALL.txt V_SMALL.txt
+
+Inversa_lu.c -----> saca la inversa de una matriz mediante factorizacion LU. 
+* gcc Inversa_lu.c 
+* ./a.out M_SMALL.txt
+
+LU_cholesky.c -----> soluciona una sistema de ecuaciones mediante factorización LU Cholesky modificado. 
+* gcc LU_cholesky.c
+* ./a.out M_SMALL.txt V_SMALL.txt
+
+maximo.c -----> calcula el maximo de una matriz 
+* gcc maximo.c
+* ./a.out M_MEDIUM.txt 
