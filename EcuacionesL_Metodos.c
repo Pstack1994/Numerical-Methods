@@ -3,8 +3,8 @@
 
 ///////////////////////metodos para resolver sistemas de ecuaciones lineales//////////////////////////////
 
-double GJ_sinpivoteo(double**matriz, int m, int n, double *resultado);
-double GJ_pivoteo(double**matriz, int m, int n, double *resultado);
+double G_sinpivoteo(double**matriz, int m, int n, double *resultado);
+double G_pivoteo(double**matriz, int m, int n, double *resultado);
 void desc_LU(double **matriz, int m, int *posicion);
 void solv_LU(double **matrizLU,int m, double *resultado);
 double ** inversa_LU(double **matriz, int m, int *posicion);
@@ -12,7 +12,7 @@ double ** Mod_Cholesky(double **matriz,int m, int n);
 void solv_Mod_Cholesky(double **cholesky, int m, double *resultado);
 
 ///////////////////////Gauss sin pivoteo//////////////////////////////////////////////////////
-double GJ_sinpivoteo(double**matriz, int m, int n, double *resultado){
+double G_sinpivoteo(double**matriz, int m, int n, double *resultado){
 int r=0, c=0, r2=0, s=1;//r=renglomnes, c=columnas, r2=renglon por el cual se intercambiará, s=signo del determinante.
 double max, det=1;//max=máximo de la columna c, det=determinante.
 
@@ -49,7 +49,7 @@ double max, det=1;//max=máximo de la columna c, det=determinante.
 }
 
 /////////////gauss con pivoteo/////////////////////////////////////////////////////////////////
-double GJ_pivoteo(double**matriz, int m, int n, double *resultado){
+double G_pivoteo(double**matriz, int m, int n, double *resultado){
     int posicion[n];//vector en donde se conservaran las posiciones de las soluciones en los cambios de columna
     int r=0, c=0, r2=0, c2=0, aux=0, s=1;//r=renglones, c=columnas, (r2 y c2)=renglon y columna para intercambiar. s=signo det.
     double max=0, det=1; //max=maximo valor de la matriz, det= determinante.

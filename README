@@ -4,37 +4,49 @@ solv_matrizdiagonal.c -----> soluciona una matriz diagonal.
 para compilar este programa: 
 * gcc solv_matrizdiagonal.c 
 * ./a.out M_DIAG.txt V_DIAG.txt
+toma como argumentos la matriz aumentada, el tamaño y un vector en el que se almacenarán los resultados. 
 
-solv_diagonalinferior.c -----> soluciona una matriz triangular inferior. 
+
+solv_trangularinferior.c -----> soluciona una matriz triangular inferior. 
 para compilar este programa: 
 * gcc solv_diagonalinferior.c
 * ./a.out M_TINF.c V_TINF.c
+La funcion solv_tinf() toma como argumentos la matriz aumentada, el tamaño y un vector en el que se almacenarán los resultados. 
 
-solv_diagonalsuperior.c -----> soluciona una matriz triangular superior. 
+solv_traingularsuperior.c -----> soluciona una matriz triangular superior. 
 para compilar este programa: 
 * gcc solv_diagonalinferior.c
 * ./a.out M_TSUP.c V_TSUP.c
+La funcion solv_tinf() toma como argumentos la matriz aumentada, el tamaño y un vector en el que se almacenarán los resultados. 
 
-gaussjordansinpivoteo.c -----> soluciona una sistema de ecuaciones mediante gauss sin pivoteo. 
+Gauss_sinpivoteo.c -----> soluciona una sistema de ecuaciones mediante gauss sin pivoteo. 
 para compilar este programa: 
 * gcc gaussjordansinpivoteo.c 
 * ./a.out M_SMALL.txt V_SMALL.txt
+La funcion G_sinpivoteo() toma como argumentos la matriz aumentada, el tamaño y un vector en el que se almacenarán los resultados. 
 
 Gauss_pivoteo.c -----> soluciona una sistema de ecuaciones mediante gauss con pivoteo. 
 * gcc Gauss_pivoteo.c
 * ./a.out M_SMALL.txt V_SMALL.txt
+La funcion G_pivoteo() toma como argumentos la matriz aumentada, el tamaño y un vector en el que se almacenarán los resultados. 
 
 Fact_LU_DOO.c -----> soluciona una sistema de ecuaciones mediante factorización LU Doolitle. 
 * gcc Fact_LU_DOO.c
 * ./a.out M_SMALL.txt V_SMALL.txt
+La funcion desc_LU() toma como argumentos la matriz aumentada, el tamaño y un vector de posicion en donde se almacenaran las modificaciones de renglones que se hicieron en el pivoteo. 
+La funcion solv_LU() toma como argumentos la matriz aumentada y el tamaño.
 
 Inversa_lu.c -----> saca la inversa de una matriz mediante factorizacion LU. 
 * gcc Inversa_lu.c 
 * ./a.out M_SMALL.txt
+La funcion inversa_LU() toma como argumentos la matriz, el tamaño y el vector de posicion de la funcion des_LU(). 
+
 
 LU_cholesky.c -----> soluciona una sistema de ecuaciones mediante factorización LU Cholesky modificado. 
 * gcc LU_cholesky.c
 * ./a.out M_SMALL.txt V_SMALL.txt
+La funcion mod_cholesky() toma como argumentos la matriz y el tamaño.
+La funcion solv_cholesky() toma como argumentos la matriz factorizada con Cholesky, el tamaño y un vector en donde se almacenrán los resultados. 
 
 maximo.c -----> calcula el maximo de una matriz 
 * gcc maximo.c

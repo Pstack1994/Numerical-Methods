@@ -9,7 +9,7 @@ int main(int argc, char* argv[]){
     double det;
     matriz=lee_matriz(argc, argv);
     double resultado[matriz.m];
-    solv_diagonalsup(matriz.A,matriz.m,resultado);
+    solv_tsup(matriz.A,matriz.m,resultado);
     imprime_resultado(resultado, matriz.m);
     printf("\n");
     printf("El determinante es: ");

@@ -11,7 +11,7 @@ int main(int argc, char* argv[]){
     double resultado[matriz.m];
     double det;
 
-    det=GJ_sinpivoteo(matriz.A, matriz.m, matriz.n,resultado);
+    det=G_sinpivoteo(matriz.A, matriz.m, matriz.n,resultado);
     imprime_resultado(resultado,matriz.m);
     printf("\n");
     printf("El determinante es:");

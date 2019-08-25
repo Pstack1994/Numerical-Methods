@@ -10,7 +10,7 @@ int main(int argc, char* argv[]){
     matriz=lee_matriz(argc, argv);
     double resultado[matriz.m];
     double det;
-    det=GJ_pivoteo(matriz.A, matriz.m, matriz.n,resultado);
+    det=G_pivoteo(matriz.A, matriz.m, matriz.n,resultado);
 
     imprime_resultado(resultado,matriz.m);
     printf("\n");
