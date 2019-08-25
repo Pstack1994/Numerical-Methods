@@ -4,7 +4,6 @@
 #include "operacion_matriz.c"
 #include "EcuacionesL_Metodos.c"
 
-void solv_Mod_Cholesky(double **cholesky, int m, double *resultado);
 
 int main(int argc, char* argv[]){
     Matriz matriz;
@@ -17,22 +16,4 @@ int main(int argc, char* argv[]){
     imprime_resultado(resultado, matriz.m);
     liberar_matriz(cholesky, matriz.m);
     return 0;
-}
-
-void solv_Mod_Cholesky(double **cholesky, int m, double *resultado){
-
- for(int i=1; i<m; i++){
-        for(int j=0;j<i;j++){
-            cholesky[i][j]*=cholesky[j][j];
-        }
-    }
-    solv_diagonalinf(cholesky,m,resultado);
-
-    for(int i=0;i<m;i++){
-        cholesky[i][i]=1;
-        cholesky[i][m]=resultado[i];
-    }
-
-   solv_diagonalsup(cholesky,m,resultado);
-
 }

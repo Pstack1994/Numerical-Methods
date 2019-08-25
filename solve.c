@@ -9,9 +9,9 @@
 //double find_maxr(double **matriz, int m,int r, int c, int *r2);
 //double find_max(double **matriz, int m,int r, int c , int *r2, int *c2);
 void solv_diagonal(double **matriz,int m,double *resultado);
-void solv_diagonalinf(double **matriz,int m, double *resultado);
+void solv_tinf(double **matriz,int m, double *resultado);
 double det_diagonal(double **matriz, int m);
-void solv_diagonalsup(double **matriz, int m, double *resultado);
+void solv_tsup(double **matriz, int m, double *resultado);
 /*double GJ_sinpivoteo(double**matriz, int m, double *resultado);
 double GJ_pivoteo(double**matriz, int m, double *resultado);
 void desc_LU(double **matriz, int m);
@@ -95,7 +95,7 @@ void solv_diagonal(double **matriz,int m,double *resultado){
     }
 }
 
-void solv_diagonalinf(double **matriz,int m, double *resultado){//resuelve una matriz triangular inferior
+void solv_tinf(double **matriz,int m, double *resultado){//resuelve una matriz triangular inferior
     double suma=0, c=0;
     resultado[0]=matriz[0][m]/matriz[0][0];
     for(int i=1; i<m;i++){
@@ -111,7 +111,7 @@ void solv_diagonalinf(double **matriz,int m, double *resultado){//resuelve una m
     }
 }
 
-void solv_diagonalsup(double **matriz, int m, double *resultado){
+void solv_tsup(double **matriz, int m, double *resultado){
     double suma=0;
     resultado[m-1]=matriz[m-1][m]/matriz[m-1][m-1];
     for(int i=2; i<=m;i++){

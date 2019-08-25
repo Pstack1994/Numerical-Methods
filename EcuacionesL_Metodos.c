@@ -9,7 +9,7 @@ void desc_LU(double **matriz, int m, int *posicion);
 void solv_LU(double **matrizLU,int m, double *resultado);
 double ** inversa_LU(double **matriz, int m, int *posicion);
 double ** Mod_Cholesky(double **matriz,int m, int n);
-
+void solv_Mod_Cholesky(double **cholesky, int m, double *resultado);
 
 ///////////////////////Gauss sin pivoteo//////////////////////////////////////////////////////
 double GJ_sinpivoteo(double**matriz, int m, int n, double *resultado){
@@ -43,7 +43,7 @@ double max, det=1;//max=máximo de la columna c, det=determinante.
             r++;
         c++;
 }
-    solv_diagonalsup(matriz, m, resultado);
+    solv_tsup(matriz, m, resultado);
     det=s*det;
     return det;
 }
@@ -93,7 +93,7 @@ double GJ_pivoteo(double**matriz, int m, int n, double *resultado){
 
     }
 
-    solv_diagonalsup(matriz, m, resultado);
+    solv_tsup(matriz, m, resultado);
 
     double maux;
     int pos;
@@ -177,12 +177,12 @@ void solv_LU(double **matrizLU,int m, double *resultado){
         matrizLU[i][i]=1;
     }
 
-    solv_diagonalinf(matrizLU,m,resultado);//resolver ly=b
+    solv_tinf(matrizLU,m,resultado);//resolver ly=b
     for(int i=0; i<m;i++){
         matrizLU[i][i]=respaldo_diag[i];
         matrizLU[i][m]=resultado[i];//intercambiar valores de la ultima columna por los resultados de resolver ly=b
     }
-    solv_diagonalsup(matrizLU,m,resultado);//resolver ux=y
+    solv_tsup(matrizLU,m,resultado);//resolver ux=y
 }
 
 double ** inversa_LU(double **matriz, int m,int *posicion){
@@ -223,7 +223,7 @@ double ** inversa_LU(double **matriz, int m,int *posicion){
         for(int j=0; j<m; j++){
             matriz[j][m]=identidad[j][i];
         }
-        solv_diagonalinf(matriz,m,resultado);
+        solv_tinf(matriz,m,resultado);
         for(int k=0; k<m;k++){
             identidad[k][i]= resultado[k];
         }
@@ -238,7 +238,7 @@ double ** inversa_LU(double **matriz, int m,int *posicion){
         for(int j=0; j<m; j++){
             matriz[j][m]=identidad[j][i];
         }
-        solv_diagonalsup(matriz,m,resultado);
+        solv_tsup(matriz,m,resultado);
 
         for(int k=0; k<m;k++){
             identidad[k][i]= resultado[k];
@@ -291,12 +291,21 @@ for(int i=0;i<m;i++){
 
         }
     }
-    /*for(int i=0; i<m;i++){
-        for(int j=0; j<n; j++){
-            printf("%lf ", matriz[i][j]);
-        }
-        printf("\n");
-    }*/
-
     return matriz;
+}
+
+void solv_Mod_Cholesky(double **cholesky, int m, double *resultado){
+
+ for(int i=1; i<m; i++){
+        for(int j=0;j<i;j++){
+            cholesky[i][j]*=cholesky[j][j];
+        }
+    }
+    solv_tinf(cholesky,m,resultado);
+
+    for(int i=0;i<m;i++){
+        cholesky[i][i]=1;
+        cholesky[i][m]=resultado[i];
+    }
+   solv_tsup(cholesky,m,resultado);
 }
