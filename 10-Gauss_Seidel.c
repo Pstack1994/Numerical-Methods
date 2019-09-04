@@ -1,44 +1,18 @@
 #include <stdio.h>
 #include <math.h>
+#include "matrix.c"
+#include "tarea5.c"
 
-int main(){
-    int m=4;
-    double a[m][m+1], xn[m], tole=.000001, suma=0, aux=0, auxa=0;
-    int max=0;
 
-    printf("ingresalos valores de la matriz: \n");
-    for(int i=0; i<m;i++){
-        for(int j=0; j<=m;j++){
-            scanf("%lf", &a[i][j]);
-        }
-    }
-    ///inicializacion de xanterior
-    for(int i=0; i<m;i++){
-        xn[i]=a[i][m];
-    }
 
-    do{
-        aux=0;
-        for(int i=0;i<m;i++){
-            suma=0;
-            for(int j=0; j<m;j++){
-                if(i!=j){
-                    suma+=a[i][j]*xn[j];
-                }
-         }
-            auxa=xn[i];
-            xn[i]=(a[i][m]-suma)/a[i][i];
-            aux+=((xn[i]-auxa)*(xn[i]-auxa))/(xn[i]*xn[i]); //calculo del error
-        }
+int main(int argc, char* argv[]){
+    Matriz matriz;
+    matriz=lee_matriz(argc, argv);
+    double *resultado, tole=.00000000001;
 
-        aux=sqrt(aux);
-        max++;//incrementar contador;
+    resultado=Gauss_Seidel(matriz.A, matriz.m, tole);
+    liberar_matriz(matriz.A,matriz.m);
+    free(resultado);
 
-    } while(aux>tole && max<100);
-
-    printf("Numero de iteraciones: %d \n", max);
-    for(int i=0; i<m;i++){
-        printf("%lf ", xn[i]);
-    }
     return 0;
 }
