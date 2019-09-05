@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "matrix.c"
 #include <math.h>
+#include <time.h>
 #include "tarea5.c"
 
 int main(int argc, char* argv[]){
@@ -12,7 +13,7 @@ int main(int argc, char* argv[]){
     printf("\n");
     printf("Eigen vector: ");
     for(int i=0; i<matriz.m;i++){
-        printf("%lf, ", solucion.eigenvector[i]);
+        printf("%.15lf, ", solucion.eigenvector[i]);
     }
 
     liberar_matriz(matriz.A,matriz.m);

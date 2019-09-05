@@ -7,6 +7,7 @@ double evalua(double x, int numero);
 double biseccion(double a, double b, double toler, int numero);
 void menu_biseccion();
 double deriva(double x, double h, int numero);
+double Newton (double xa, double tolerancia, int numero);
 void menu_newton(double tolerancia);
 double *Jacobi(double **matriz, int m, double tole);
 void imprime_resultado(double *resultado, int m);
@@ -87,13 +88,12 @@ double deriva(double x, double h, int numero){
 }
 double Newton (double xa, double tolerancia, int numero){
     double xn, error=tolerancia+1;
-    int max=0, it=100;
+    int max=0, it=10000;
     do{
-        if(deriva(xa,tolerancia, numero)>tolerancia){
         xn=xa-(evalua(xa, numero)/deriva(xa,tolerancia, numero));
-        }else{
-        printf("No se encontraron raices");
-        return 0;
+        if(isnan(xn)){
+            printf("No se encontraron raices");
+            return 0;
         }
         error=mabs(xn-xa);
         xa=xn;
@@ -120,13 +120,13 @@ void menu_newton(double tolerancia){
         printf("\nA qué función deseas aproximar la raíz: ");
         scanf("%d", &numero);
         switch(numero){
-            case 1: xa=1;bandera=1;break;
-            case 2: xa=2;bandera=1;break;
-            case 3: xa=1;bandera=1;break;
-            case 4: xa=10;bandera=1;break;
-            case 5: xa=-2;bandera=1;break;
-            case 6: xa=5;bandera=1;break;
-            default: printf("No es una opción valida, ingrese otra."); bandera=0;
+            case 1:printf("\nIngresa el punto inicial: ");scanf("%lf", &xa);bandera=1;break;
+            case 2:printf("\nIngresa el punto inicial: ");scanf("%lf", &xa);bandera=1;break;
+            case 3:printf("\nIngresa el punto inicial: ");scanf("%lf", &xa);bandera=1;break;
+            case 4:printf("\nIngresa el punto inicial: ");scanf("%lf", &xa);bandera=1;break;
+            case 5:printf("\nIngresa el punto inicial: ");scanf("%lf", &xa);bandera=1;break;
+            case 6:printf("\nIngresa el punto inicial: ");scanf("%lf", &xa);bandera=1;break;
+            default: printf("No es una opción valida, ingrese otra."); bandera=0;break;
         }
     }
     resultado=Newton(xa,tolerancia,numero);
@@ -245,55 +245,60 @@ double *Gauss_Seidel(double **matriz, int m, double tole){
 eigen metodo_potencia(double **matriz, int m, int n, double tole){
     eigen solucion;
     solucion.eigenvector=(double *)malloc(m*sizeof(double));
-    double  xn[m], error=0, maxa=0, maxn=0, norma=0;
-    double xa[m], resultado[m], lambda;
+    double  xn[m], error=0, numerador=0, denominador=0, norma=0;
+    double xa[m], resultado[m], lambdan=0, lambdaa=0;
     int max_it=0;
-
+    srand(time(NULL));
     ///inicilizar vector anterior
     for(int i=0; i<m;i++){
-        xa[i]=0;
+        xa[i]=rand()%100+1;
     }
-    xa[0]=1;
+    /*for(int i=0; i<m; i++){
+        xa[i]=matriz[i][m];
+    }*/
 
     do{
-    norma=0;
-    //multiplicar vector anterior por matriz
-    for(int i=0; i<m; i++){
-        for(int j=0; j<n;j++){
-            resultado[i]=0;
-            for(int k=0;k<m;k++){
-                  resultado[i]+=matriz[i][k]*xa[k];
+
+        //normalizar xa
+        norma=0;
+        for(int i=0; i<m; i++){
+            norma+=xa[i]*xa[i];
+        }
+        norma=sqrt(norma);
+        for(int i=0; i<m; i++){
+            xa[i]=xa[i]/norma;
+        }
+
+        //multiplicar vector anterior por matriz
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n;j++){
+                resultado[i]=0;
+                for(int k=0;k<m;k++){
+                    resultado[i]+=matriz[i][k]*xa[k];
+                }
             }
         }
-       norma+=resultado[i]*resultado[i];
-    }
-    //norma de la multiplicacion
-    norma=sqrt(norma);
-
-    maxa=maxn;
-    //encontrar maximo del vector anterior
-    double max=mabs(xa[0]);
-    int pos_max=0;
-    for(int i=0; i<m;i++){
-        if(mabs(xa[i])>mabs(max)){
-            max=xa[i];
-            pos_max=i;
+        numerador=0;
+        denominador=0;
+        //calcular proyecciones con producto punto porque norma es 1
+        for(int i=0; i<m; i++){
+            numerador+=resultado[i]*resultado[i];
+            denominador+=xa[i]*resultado[i];
         }
-    }
+        //aproximacion del valor propio
+        lambdan=numerador/denominador;
+        solucion.eigenvalor=lambdan;
 
-    lambda=resultado[pos_max]/xa[pos_max];
-    maxn=lambda;
+        //calculo del error
+        error=mabs(lambdan-lambdaa);
+        lambdaa=lambdan;
 
-    //normalizar vector de la multiplicación
-    for(int i=0; i<m; i++){
-        xa[i]=resultado[i]/norma;
-        solucion.eigenvector[i]=xa[i];
-    }
-
-    error=mabs(maxn-maxa);
-    solucion.eigenvalor=maxn;
-    max_it++;
+        for(int i=0; i<m; i++){
+            solucion.eigenvector[i]=xa[i];
+            xa[i]=resultado[i];
+        }
+        max_it++;
     } while (max_it<100 && error > tole);
-
+    printf("Iteraciones: %d \n", max_it);
     return solucion;
 }
