@@ -82,3 +82,13 @@ double **multiplicacion(double **matriz, double **matriz2, int m, int n, int p, 
     }
     return resultado;
 }
+
+
+double ppunto(double *x, double *y, int m){
+    double resultado=0;
+    for(int i=0; i<m;i++){
+        resultado+=x[i]*y[i];
+    }
+
+    return resultado;
+}
