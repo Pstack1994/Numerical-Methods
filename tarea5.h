@@ -1,5 +1,6 @@
-#include"matrix.h"
 
+#ifndef TAREA5
+#define TAREA5
 double mabs(double a);
 double evalua(double x, int numero);
 double biseccion(double a, double b, double toler, int numero);
@@ -10,3 +11,4 @@ double *Jacobi(double **matriz, int m, double tole);
 void imprime_resultado(double *resultado, int m);
 double *Gauss_Seidel(double **matriz, int m, double tole);
 eigen metodo_potencia(double **matriz, int m, int n, double tole);
+#endif

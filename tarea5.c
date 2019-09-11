@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include<math.h>
+#include "matrix.h"
 
 
 double mabs(double a);
@@ -29,12 +32,13 @@ double evalua(double x, int numero){
         case 4: return 1/(x*x);break;
         case 5: return (x*x*x)-3*(x*x)+2*x;break;
         case 6: return 1/(x*x);break;
+        default: return 0;
     }
 
 }
 
 double biseccion(double a, double b, double toler, int numero){
-double eval_a, eval_b, p_medio, eval_pmedio, a1=a, b1=b;
+double eval_a, p_medio, eval_pmedio, a1=a, b1=b;
     int max=0, it=100;
  do{
         p_medio= (a + b)/2;
@@ -63,7 +67,6 @@ void menu_biseccion(){
     int bandera=0;
     double a;
     double b;
-    double resultado;
     printf("1) x^2 \n2) x^2 -2 \n3) sin(x) \n4) 1/(x^2) \n5) x^3 + 3x^2 + 2x \n6) 1/(x^2)\n");
     while(bandera==0){
         printf("\nA qué función deseas aproximar la raíz: ");
@@ -78,7 +81,7 @@ void menu_biseccion(){
             default: printf("No es una opción valida, ingrese otra."); bandera=0;
         }
     }
-    resultado=biseccion(a,b,1e-15,numero);
+    biseccion(a,b,1e-15,numero);
 }
 
 
@@ -114,7 +117,6 @@ void menu_newton(double tolerancia){
     int numero;
     int bandera=0;
     double xa;
-    double resultado;
     printf("1) x^2 \n2) x^2 -2 \n3) sin(x) \n4) 1/(x^2) \n5) x^3 + 3x^2 + 2x \n6) 1/(x^2)\n");
     while(bandera==0){
         printf("\nA qué función deseas aproximar la raíz: ");
@@ -129,7 +131,7 @@ void menu_newton(double tolerancia){
             default: printf("No es una opción valida, ingrese otra."); bandera=0;break;
         }
     }
-    resultado=Newton(xa,tolerancia,numero);
+   Newton(xa,tolerancia,numero);
 }
 
 double *Jacobi(double **matriz, int m, double tole){
@@ -245,7 +247,7 @@ double *Gauss_Seidel(double **matriz, int m, double tole){
 eigen metodo_potencia(double **matriz, int m, int n, double tole){
     eigen solucion;
     solucion.eigenvector=(double *)malloc(m*sizeof(double));
-    double  xn[m], error=0, numerador=0, denominador=0, norma=0;
+    double error=0, numerador=0, denominador=0, norma=0;
     double xa[m], resultado[m], lambdan=0, lambdaa=0;
     int max_it=0;
     srand(time(NULL));

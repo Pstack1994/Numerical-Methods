@@ -1,22 +1,6 @@
 #include <stdio.h>
 #include<stdlib.h>
-
-typedef struct{
-	double **A;
-	int m;
-	int n;
-} Matriz;
-
-typedef struct{
-	double *eigenvector;
-	double eigenvalor;
-} eigen;
-
-double **crea_matriz(int m);
-double **crea_matriz2(int m, int n);
-void liberar_matriz(double **matriz,int m);
-Matriz lee_matriz(int argc, char* argv[]);
-Matriz lee_matriz1(int argc, char* argv[]);
+#include"matrix.h"
 
 
 double **crea_matriz(int m){
@@ -87,7 +71,6 @@ Matriz lee_matriz(int argc, char* argv[]){
 
 Matriz lee_matriz1(int argc, char* argv[]){
     int m, n;
-	int k,l;
 	Matriz matriz;
 
     FILE* fin = NULL;
