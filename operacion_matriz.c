@@ -14,9 +14,9 @@ void imprime_matrizc(double **matriz, int m, int n){
 }
 
 void imprime_resultado(double *resultado, int m){
-    printf("EL resultado es: ");
+    //printf("EL resultado es: ");
     for(int i=0; i<m;i++){
-        printf("%lf ", resultado[i]);
+        printf("%.10lf ", resultado[i]);
     }
     printf("\n");
 }
@@ -91,4 +91,23 @@ double ppunto(double *x, double *y, int m){
     }
 
     return resultado;
+}
+
+matriz_elemento find_max_od(double **matriz, int m, int n){
+    matriz_elemento maximo;
+    maximo.max=0;
+
+
+    for(int i=0; i<m; i++){
+        for(int j=0; j<n; j++){
+            if(i!=j){
+                if(mabs(matriz[i][j])>mabs(maximo.max)){
+                maximo.max=mabs(matriz[i][j]);
+                maximo.pos_i=i; maximo.pos_j=j;// posición en renglones y columnas del maximo
+                }
+            }
+        }
+    }
+
+    return maximo;
 }

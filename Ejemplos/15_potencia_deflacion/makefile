@@ -15,11 +15,14 @@ BIN = 15-potencia_deflacion
 # Object files from which $BIN depends
 RUTA= ../..
 OBJS= ${RUTA}/matrix.o \
-	${RUTA}/operacion_matriz.o
+	${RUTA}/Eigen.o\
+	${RUTA}/operacion_matriz.o\
+	${RUTA}/solve.o\
+	${RUTA}/EcuacionesL_Metodos.o
 
 # This default rule compiles the executable program
 $(BIN): $(OBJS) $(BIN).c
-	$(CC) $(CFLAGS) $(DEFS) $(LIBS) $(OBJS) $(BIN).c -o $(BIN)
+	$(CC) $(CFLAGS) $(DEFS) $(OBJS) $(BIN).c -o $(BIN) $(LIBS)
 
 # This rule compiles each module into its object file
 %.o: %.c %.h

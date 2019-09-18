@@ -15,12 +15,13 @@ BIN = 17-jacobi_eigen
 # Object files from which $BIN depends
 RUTA= ../..
 OBJS= ${RUTA}/matrix.o \
+	${RUTA}/Eigen.o\
 	${RUTA}/solve.o\
-	${RUTA}/operacion_matriz.o
-
+	${RUTA}/operacion_matriz.o\
+	${RUTA}/EcuacionesL_Metodos.o
 # This default rule compiles the executable program
 $(BIN): $(OBJS) $(BIN).c
-	$(CC) $(CFLAGS) $(DEFS) $(LIBS) $(OBJS) $(BIN).c -o $(BIN)
+	$(CC) $(CFLAGS) $(DEFS) $(OBJS) $(BIN).c -o $(BIN) $(LIBS)
 
 # This rule compiles each module into its object file
 %.o: %.c %.h

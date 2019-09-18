@@ -10,16 +10,15 @@ LIBS = -lm
 DEFS = -DDEBUG_FLAG -DEXPERIMENTAL=0
 
 # The final executable program file, i.e. name of our program
-BIN = 16-potencia_inv_deflacion
+BIN = 18-Metodo_Rayleigh
 
 # Object files from which $BIN depends
 RUTA= ../..
 OBJS= ${RUTA}/matrix.o \
-	${RUTA}/Eigen.o \
+	${RUTA}/Eigen.o\
 	${RUTA}/solve.o\
 	${RUTA}/operacion_matriz.o\
 	${RUTA}/EcuacionesL_Metodos.o
-
 # This default rule compiles the executable program
 $(BIN): $(OBJS) $(BIN).c
 	$(CC) $(CFLAGS) $(DEFS) $(OBJS) $(BIN).c -o $(BIN) $(LIBS)
