@@ -1,5 +1,6 @@
 #ifndef EIGEN
 #define EIGEN
+eigen metodo_potencia(double **matriz, int m, int n, double tole);
 eigen potencia_inversa(double **matriz, int m, int n, double tole);
 eigen2 potencia_deflacion(double **matriz, int m, int n, double tole);
 eigen2 deflacion_potenciainv(double **matriz, int m, int n, double tole);

@@ -17,7 +17,7 @@ int main(int argc, char* argv[]){
     solucion=potencia_deflacion(matriz.A, matriz.m,matriz.n,1e-8);
     printf("Los eigenvalores son: \n");
     imprime_resultado(solucion.eigenvalor,matriz.m);
-    printf("Los eigenvectores son: ");
+    printf("Los eigenvectores son:\n");
     imprime_matrizc(solucion.eigenvector, matriz.m, matriz.m);
 
     liberar_matriz(matriz.A,matriz.m);

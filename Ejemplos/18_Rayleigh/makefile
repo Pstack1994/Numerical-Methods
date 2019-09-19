@@ -34,6 +34,6 @@ clean:
 depend:
 	makedepend -Y -- $(CFLAGS) $(DEFS) -- *.c
 run:
-	./$(BIN) $(f1)
+	./$(BIN) $(f1) $(f2)
 valgrind:
-	valgrind --tool=memcheck --leak-check=yes ./$(BIN) ${f1}
+	valgrind --tool=memcheck --leak-check=yes ./$(BIN) ${f1} $(f2)

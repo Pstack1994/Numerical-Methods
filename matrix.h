@@ -8,6 +8,12 @@ typedef struct Matriz{
 	int n;
 } Matriz;
 
+typedef struct Vector{
+	double *v;
+	int m;
+	int n;
+}Vector;
+
 typedef struct eigen{
 	double *eigenvector;
 	double eigenvalor;
@@ -30,4 +36,5 @@ double **crea_matriz2(int m, int n);
 void liberar_matriz(double **matriz,int m);
 Matriz lee_matriz(int argc, char* argv[]);
 Matriz lee_matriz1(int argc, char* argv[]);
+Vector lee_vector(char *filename);
 #endif

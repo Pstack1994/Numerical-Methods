@@ -93,3 +93,25 @@ Matriz lee_matriz1(int argc, char* argv[]){
 	matriz.n=n;
 	return matriz;
 }
+
+Vector lee_vector(char *filename){
+	int m, n;
+	Vector vector;
+	FILE* fin=NULL;
+	fin=fopen(filename, "r");
+
+	if(  !fin  ){
+		printf("Error: No se abrio %s\n" , filename);
+	}
+
+	fscanf(fin, "%d %d", &m, &n );
+	vector.v=(double*)malloc(m*sizeof(double));
+
+    for(int i=0; i<m; i++){
+		fscanf(fin, "%lf", &vector.v[i]);
+	}
+	fclose( fin );
+	vector.m=m;
+	vector.n=n;
+	return vector;
+}
