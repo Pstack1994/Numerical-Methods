@@ -40,11 +40,11 @@ Matriz lee_matriz(int argc, char* argv[]){
 		printf("Error: No se abrio %s\n" , argv[ 1 ] );
 	}
 
-    fscanf(fin, "%d %d", &n, &m );
-	matriz.A=crea_matriz(m);
+    fscanf(fin, "%d %d", &m, &n );
+	matriz.A=crea_matriz2(m,n+1);
 
-    for(int i=0; i<n; i++){
-		for(int j=0; j<m; j++){
+    for(int i=0; i<m; i++){
+		for(int j=0; j<n; j++){
 			fscanf(fin, "%lf", &matriz.A[i][j]);
 		}
 	}
@@ -59,7 +59,7 @@ Matriz lee_matriz(int argc, char* argv[]){
     fscanf( fin , "%d %d", &k , &l );
 
 	for(int j=0; j<k; j++){
-		fscanf(fin, "%lf", &matriz.A[j][m]);
+		fscanf(fin, "%lf", &matriz.A[j][n]);
 	}
 	fclose( fin );
 	matriz.m=m;
@@ -80,11 +80,11 @@ Matriz lee_matriz1(int argc, char* argv[]){
 		printf("Error: No se abrio %s\n" , argv[ 1 ] );
 	}
 
-    fscanf(fin, "%d %d", &n, &m );
-	matriz.A=crea_matriz(m);
+    fscanf(fin, "%d %d", &m, &n );
+	matriz.A=crea_matriz2(m,n);
 
-    for(int i=0; i<n; i++){
-		for(int j=0; j<m; j++){
+    for(int i=0; i<m; i++){
+		for(int j=0; j<n; j++){
 			fscanf(fin, "%lf", &matriz.A[i][j]);
 		}
 	}
