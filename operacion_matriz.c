@@ -112,7 +112,7 @@ matriz_elemento find_max_od(double **matriz, int m, int n){
 
     return maximo;
 }
-void matrix_multiply_mmd(double ** a, double ** b, double ** c, int arows, int acols, int bcols) {
+void multiplica_matrices(double ** a, double ** b, double ** c, int arows, int acols, int bcols) {
     double ** a_i = a;
     double ** b_i = b;
     double ** c_i = c;
