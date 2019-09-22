@@ -12,7 +12,7 @@ int main(int argc, char *argv[]){
     eigen2 solucion;
 
     matriz=lee_matriz1(argc,argv);
-    double **r=crea_matriz2(matriz.m,matriz.n);
+    double **r=crea_matriz2(matriz.n,matriz.n);
 
     solucion=metodo_QR(matriz.A,r,matriz.m,matriz.n, 2.2245e-9);
     imprime_matrizc(solucion.eigenvector,matriz.m,matriz.n);

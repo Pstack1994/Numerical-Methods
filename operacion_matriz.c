@@ -120,7 +120,7 @@ void multiplica_matrices(double ** a, double ** b, double ** c, int arows, int a
     for (int i = 0; i < arows; i++, a_i++, b_i++, c_i++) {
         double ** b_k = b;
         double * a_ik = *a_i;
-        memset(*c_i, 0, acols * sizeof(double));
+        memset(*c_i, 0, bcols * sizeof(double));
         for (int k = 0; k < acols; k++, a_ik++, b_k++) {
             double * b_kj = *b_k;
             double * c_ij = *c_i;
