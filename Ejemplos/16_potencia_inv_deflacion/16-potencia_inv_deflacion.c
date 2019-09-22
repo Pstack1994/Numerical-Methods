@@ -15,7 +15,7 @@ int main(int argc, char* argv[]){
     Matriz matriz;
     eigen2 solucion;
     matriz=lee_matriz1(argc, argv);
-    solucion=deflacion_potenciainv(matriz.A, matriz.m,matriz.n,1e-8);
+    solucion=deflacion_potenciainv(matriz.A, matriz.m,matriz.n,1e-8,matriz.m);
     printf("Los eigenvalores son: \n");
     imprime_resultado(solucion.eigenvalor,matriz.m);
     printf("Los eigenvectores son: ");
