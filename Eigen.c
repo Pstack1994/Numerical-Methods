@@ -216,10 +216,10 @@ eigen2 potencia_deflacion(double **matriz, int m, int n, double tole){
     return solucion;
 }
 
-eigen2 deflacion_potenciainv(double **matriz, int m, int n, double tole){
+eigen2 deflacion_potenciainv(double **matriz, int m, int n, double tole, int neigen){
     eigen2 solucion;
-    solucion.eigenvalor=(double *)malloc(m*sizeof(double));
-    solucion.eigenvector=crea_matriz(m);
+    solucion.eigenvalor=(double *)malloc(neigen*sizeof(double));
+    solucion.eigenvector=crea_matriz2(m, neigen);
 
 
     double error=0, numerador=0, denominador=0, norma=0;
@@ -232,7 +232,7 @@ eigen2 deflacion_potenciainv(double **matriz, int m, int n, double tole){
 
     desc_LU(matriz, m, posicion);
 
-    for(int w=0; w<m; w++){
+    for(int w=0; w<neigen; w++){
         //inicializar vector vo
         for(int i=0; i<m;i++){
             xa[i]=rand()%100 +1;
@@ -283,7 +283,6 @@ eigen2 deflacion_potenciainv(double **matriz, int m, int n, double tole){
                 solucion.eigenvector[i][w]=xa[i];
                 xa[i]=xn[i];
             }
-
             max_it++;
         }while (max_it<1000 && error > tole);
 
@@ -357,6 +356,55 @@ do{
         solucion.eigenvalor[i]=matriz[i][i];
     }
     printf("iteraciones: %d\n", max_it);
+
+    return solucion;
+}
+
+eigen2 metodo_QR(double **matriz, double **r, int m, int n, double tole){
+    matriz_elemento maximo;
+    eigen2 solucion;
+    double ** resultado, **eigenvector;
+    int max_it=0;
+    resultado=crea_matriz2(m,n);
+    eigenvector=crea_matriz2(m,n);
+    solucion.eigenvector=crea_matriz2(m,n);
+    solucion.eigenvalor=(double*)malloc(m*sizeof(double));
+
+    double **temp;
+    for(int i=0; i<m;i++){
+        solucion.eigenvector[i][i]=1;
+        for(int j=0; j<n; j++){
+            if(i!=j){
+                solucion.eigenvector[i][j]=0;
+            }
+        }
+    }
+
+    do{
+        factoriza_QR(matriz, r, m, n);
+
+        matrix_multiply_mmd(solucion.eigenvector,matriz,eigenvector,m,n,n);
+        matrix_multiply_mmd(r,matriz,resultado,m,n,n);
+
+        temp=resultado;
+        resultado=matriz;
+        matriz=temp;
+
+        temp=eigenvector;
+        eigenvector=solucion.eigenvector;
+        solucion.eigenvector=temp;
+
+        maximo=find_max_od(matriz, m, n);
+        max_it++;
+    }while(mabs(maximo.max)>tole && max_it<10000);
+
+    for(int i=0; i<m; i++){
+        solucion.eigenvalor[i]=matriz[i][i];
+    }
+
+    printf("converge en: %d\n", max_it);
+    liberar_matriz(resultado, m);
+    liberar_matriz(eigenvector,m);
 
     return solucion;
 }

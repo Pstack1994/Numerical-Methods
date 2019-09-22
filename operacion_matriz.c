@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "matrix.h"
 #include "operacion_matriz.h"
 
@@ -25,13 +26,17 @@ double mabs(double a){
 return (a<0)? -a:a;//calcular el valor absoluto
 }
 
-void cambia_renglon(double**matriz,int m, int r1,int r2){
+void cambia_renglon(double**matriz, double *b, int m, int r1,int r2){
     double cambia=0;
-    for(int i=0;i<=m;i++){
+    double aux=0;
+    for(int i=0;i<m;i++){
         cambia=matriz[r1][i];
         matriz[r1][i]=matriz[r2][i];
         matriz[r2][i]=cambia;
     }
+    aux=b[r1];
+    b[r1]=b[r2];
+    b[r2]=aux;
 }
 
 void cambia_columna(double**matriz,int m, int c1,int c2){
@@ -110,4 +115,25 @@ matriz_elemento find_max_od(double **matriz, int m, int n){
     }
 
     return maximo;
+}
+
+/* Multiply matrix a x b = c and save the result in the matrix c */
+/* Multiply matrix a x b = c and save the result in the matrix c */
+void matrix_multiply_mmd(double ** a, double ** b, double ** c, int arows, int acols, int bcols) {
+    double ** a_i = a;
+    double ** b_i = b;
+    double ** c_i = c;
+
+    for (int i = 0; i < arows; i++, a_i++, b_i++, c_i++) {
+        double ** b_k = b;
+        double * a_ik = *a_i;
+        memset(*c_i, 0, acols * sizeof(double));
+        for (int k = 0; k < acols; k++, a_ik++, b_k++) {
+            double * b_kj = *b_k;
+            double * c_ij = *c_i;
+            for (int j = 0; j < bcols; j++, b_kj++, c_ij++) {
+                *c_ij += (*a_ik) * (*b_kj);
+            }
+        }
+    }
 }

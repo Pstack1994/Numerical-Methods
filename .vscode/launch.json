@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["M_jacobi.txt V_jacobi.txt"],
+            "args": ["/home/pablo/Documentos/Numerical-Methods/input/ejemplo3.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
