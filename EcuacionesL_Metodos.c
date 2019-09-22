@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include<math.h>
+#include <string.h>
 #include "matrix.h"
 #include "solve.h"
 #include "operacion_matriz.h"
@@ -305,4 +307,84 @@ void solv_Mod_Cholesky(double **cholesky, int m, double *resultado){
         cholesky[i][m]=resultado[i];
     }
    solv_tsup(cholesky,m,resultado);
+}
+
+void factoriza_QR(double **matriz, double **r, int m, int n){
+double * a = (double*)malloc(m*sizeof(double));
+double suma=0, norma=0;
+
+    for(int j = 0;j<n;j++) {
+        for(int i=0; i<j;i++) {
+            suma=0;
+            for(int k=0; k<m; k++) {
+                suma += matriz[k][i] * matriz[k][j];
+            }
+            r[i][j] = suma;
+            r[j][i] = 0;
+        }
+
+        norma=0;
+        for(int i=0;i<m;i++) {
+            suma=0;
+            for (int k=0; k<j; k++) {
+                suma += r[k][j]*matriz[i][k];
+            }
+            a[i] = matriz[i][j] - suma;
+
+            norma += a[i]*a[i];
+        }
+
+        norma = sqrt(norma);
+        r[j][j] = norma;
+
+        for (int i=0; i<m; i++) {
+            matriz[i][j] = a[i] / norma;
+        }
+    }
+    free(a);
+}
+
+double *Gradiente_Conjugado(double **matriz, double *b, int m, int n){
+    int max_it=0;
+    double norma, aux=0, lambda, beta;
+    double tole=1e-9;
+
+    double *x=(double*)calloc(m, sizeof(double));
+    double *r=(double*)malloc(m*sizeof(double));
+    double *p=(double*)malloc(m* sizeof(double));
+    double *w=(double*)malloc(m* sizeof(double));
+
+
+    memcpy(r,b,m*sizeof(double));
+    memcpy(p,b,m*sizeof(double));
+
+    do{
+        for(int i=0; i<m; i++){
+            aux=0;
+            for(int j=0; j<n;j++){
+                    aux+=matriz[i][j]*p[j];
+            }
+            w[i]=aux;
+        }
+
+    lambda=ppunto(p,r,m)/ppunto(p,w,m);
+    for(int i=0; i<m; i++){
+        x[i]=x[i]+lambda*p[i];
+        r[i]=r[i]-lambda*w[i];
+    }
+    norma=ppunto(r,r,m);
+    norma=sqrt(norma);
+    beta=ppunto(p,r,m)/ppunto(p,p,m);
+    for(int i=0; i<m; i++){
+        p[i]=r[i]+beta*p[i];
+    }
+    max_it++;
+    }while(norma>tole && max_it<10000);
+    printf("Convergio en: %d  iteraciones\n ",max_it);
+    free(r);
+    free(p);
+    free(w);
+
+    return x;
+
 }

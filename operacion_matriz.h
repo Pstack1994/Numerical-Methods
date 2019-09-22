@@ -10,4 +10,5 @@ double find_max(double **matriz, int m, int n, int r, int c , int *r2, int *c2);
 double **multiplicacion(double **matriz, double **matriz2, int m, int n, int p, int q);
 double ppunto(double *x, double *y, int m);
 matriz_elemento find_max_od(double **matriz, int m, int n);
+void matrix_multiply_mmd(double ** a, double ** b, double ** c, int arows, int acols, int bcols) ;
 #endif
