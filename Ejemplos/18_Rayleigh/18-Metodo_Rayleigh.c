@@ -18,7 +18,7 @@ int main(int argc, char* argv[]){
 
     int m=matriz.m;
 
-    double error=0,norma=0, tole=2.22045e-12;
+    double error=0,norma=0, tole=2.22045e-9;
     double lambdan=0, lambdaa=0, *swap;
     double *xn, aux=0;
     xn=(double *)malloc(m*sizeof(double));

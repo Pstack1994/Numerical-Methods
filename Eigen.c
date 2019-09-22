@@ -361,7 +361,7 @@ do{
     return solucion;
 }
 
-eigen2 metodo_QR(double **matriz, double **r, int m, int n, double tole){
+/*eigen2 metodo_QR(double **matriz, double **r, int m, int n, double tole){
     matriz_elemento maximo;
     eigen2 solucion;
     double ** resultado, **eigenvector;
@@ -409,3 +409,4 @@ eigen2 metodo_QR(double **matriz, double **r, int m, int n, double tole){
 
     return solucion;
 }
+*/
