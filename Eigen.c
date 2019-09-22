@@ -360,3 +360,52 @@ do{
 
     return solucion;
 }
+
+eigen2 metodo_QR(double **matriz, double **r, int m, int n, double tole){
+    matriz_elemento maximo;
+    eigen2 solucion;
+    double ** resultado, **eigenvector;
+    int max_it=0;
+    resultado=crea_matriz2(m,n);
+    eigenvector=crea_matriz2(m,n);
+    solucion.eigenvector=crea_matriz2(m,n);
+    solucion.eigenvalor=(double*)malloc(m*sizeof(double));
+
+    double **temp;
+    for(int i=0; i<m;i++){
+        solucion.eigenvector[i][i]=1;
+        for(int j=0; j<n; j++){
+            if(i!=j){
+                solucion.eigenvector[i][j]=0;
+            }
+        }
+    }
+
+    do{
+        factoriza_QR(matriz, r, m, n);
+
+        matrix_multiply_mmd(solucion.eigenvector,matriz,eigenvector,m,n,n);
+        matrix_multiply_mmd(r,matriz,resultado,m,n,n);
+
+        temp=resultado;
+        resultado=matriz;
+        matriz=temp;
+
+        temp=eigenvector;
+        eigenvector=solucion.eigenvector;
+        solucion.eigenvector=temp;
+
+        maximo=find_max_od(matriz, m, n);
+        max_it++;
+    }while(mabs(maximo.max)>tole && max_it<10000);
+
+    for(int i=0; i<m; i++){
+        solucion.eigenvalor[i]=matriz[i][i];
+    }
+
+    printf("converge en: %d\n", max_it);
+    liberar_matriz(resultado, m);
+    liberar_matriz(eigenvector,m);
+
+    return solucion;
+}
