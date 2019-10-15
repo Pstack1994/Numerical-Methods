@@ -1,0 +1,7 @@
+Para compilar: 
+
+gcc matrizpormatriz.c -o matrizmatriz -fopenmp -lm
+./rutina.sh
+
+
+Se comprobó con ejemplos no tan grande que los valores paralelizados y no paralelizados fueran los mismos. 

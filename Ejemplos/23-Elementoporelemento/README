@@ -1,0 +1,7 @@
+Para compilar: 
+
+gcc Vector_elemtento.c -o multiplica -fopenmp -lm
+./rutina.sh
+
+
+Se dejó la parte de la norma comentada, pero se realizó la comprobación de que las operaciones paralelizadas dan el mismo resultado que las no paralelizadas. 

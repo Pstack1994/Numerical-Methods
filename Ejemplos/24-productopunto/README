@@ -1,0 +1,7 @@
+Para compilar: 
+
+gcc ppunto.c -o ppunto -fopenmp -lm
+./rutina.sh
+
+
+Se dejó la parte de la impresión e iniciaización de valores comentada. Se comprobó con ejemplos no tan grande que los valores paralelizados y no paralelizados fueran los mismo. 
