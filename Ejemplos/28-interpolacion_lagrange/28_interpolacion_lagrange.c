@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
         fprintf(guardar,"%lf %lf \n",x.v[i], fx.v[i]);
     }
 
-    polinomio=interpola_lagrange(x,fx,-10,10);
+    polinomio=interpola_lagrange(x,fx,-4,4);
 
     fclose(guardar);
     free(fx.v);
