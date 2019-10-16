@@ -1,0 +1,12 @@
+set terminal x11
+set grid
+set title "Interpolacion  Lagrange"
+set xlabel "x"
+set ylabel "y"
+plot"polinomioevaluado.txt" using 1:2 title"Interpolación" with lines, \
+    "xfx.txt" using 1:2 title"Datos" with points pointtype 20
+set terminal png nocrop enhanced size 1060,920
+set output "lagrange.png"
+replot
+set terminal x11
+set output

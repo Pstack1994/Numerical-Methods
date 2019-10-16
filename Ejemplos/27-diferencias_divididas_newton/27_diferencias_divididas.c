@@ -25,6 +25,13 @@ int main(int argc, char *argv[]){
     }
     //calcular tabla de diferencias divididas
     tabla=dif_div_newton(fx,x);
+
+    for(int i=0; i<tabla.m; i++){
+        for(int j=0; j<tabla.m; j++){
+            printf("%lf ", tabla.A[i][j]);
+        }
+        printf("\n");
+    }
     //evaluar polinomio de newton
     polinomio=evalua_dif_div_newton(x,tabla,-4,4);
 

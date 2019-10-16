@@ -32,6 +32,7 @@ depend:
 	makedepend -Y -- $(CFLAGS) $(DEFS) -- *.c
 run:
 	./$(BIN) $(f1) $(f2)
+	gnuplot grafica.txt
 
 valgrind:
 	valgrind --tool=memcheck --leak-check=yes ./$(BIN) ${f1} ${f2}
