@@ -3,7 +3,6 @@
 #include "../../matrix.h"
 
 Vector interpola_lagrange(Vector x, Vector fx, int a, int b);
-Vector derivada_lagrange(Vector x, Vector fx, double x0);
 Vector coef_lagrange(Vector x, Vector fx, double x0);
 
 
@@ -69,36 +68,5 @@ Vector coef_lagrange(Vector x, Vector fx, double x0){
             coeficientes.v[i]=l;
         }
     return coeficientes;
-
-}
-
-Vector derivada_lagrange(Vector x,Vector fx, double x0){
-    Vector derivada;
-    derivada.m=x.m;
-    derivada.n=x.n;
-    derivada.v=(double*)malloc(derivada.m*sizeof(double));
-
-    for(int i=0; i<x.m ;i++){
-        double suma=0;
-        for(int j=0; j<x.m; j++){
-            if(i!=j){
-                double l=1;
-                for(int m=0; m<x.m; m++){
-                    if(m!=i && m!=j){
-                        l*=(x0-x.v[m])/(x.v[j]-x.v[m]);
-                    }
-                }
-
-                suma+=(1/(x.v[i]-x.v[j]));
-
-
-            }
-        }
-        printf("%lf ", suma);
-        derivada.v[i]=suma;
-
-    }
-
-    return derivada;
 
 }
