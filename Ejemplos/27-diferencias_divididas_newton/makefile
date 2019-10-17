@@ -14,7 +14,8 @@ BIN = 27_diferencias_divididas
 
 # Object files from which $BIN depends
 RUTA= ../..
-OBJS= ${RUTA}/matrix.o
+OBJS= ${RUTA}/matrix.o\
+	${RUTA}/interpolacion.o
 
 # This default rule compiles the executable program
 $(BIN): $(OBJS) $(BIN).c
